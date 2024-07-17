@@ -4,6 +4,11 @@ This repository contains helper tools for devlopers who wish to develop applicat
 
 ## Test serverless JS function locally
 
+First, clone the `oyster-serverless-devtools` github repository and change directory to `local_tester`.
+```bash
+git clone https://github.com/marlinprotocol/oyster-serverless-devtools.git && cd oyster-serverless-devtools/local_tester
+```
+
 <b>Create docker image for local test server</b>
 
 Note that, above Dockerfile accepts `TARGETARCH` as build argument which determines the target cpu. Valid values for `TARGETARCH` are `amd64`and `arm64`. Following is the sample command:
