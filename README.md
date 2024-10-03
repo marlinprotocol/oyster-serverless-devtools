@@ -51,7 +51,7 @@ Usage: hardhat [GLOBAL OPTIONS] [SCOPE] <TASK> [TASK OPTIONS]
 ```
 ### Build
 
-Check the sample contract at `contracts/UserSample.sol`. This can be used as base contract for developing new application contract.
+Check the sample contract at `contracts/UserSample.sol`. This can be used as base contract for developing new application contract. For Subscription example, check `contracts/SubsUser.sol`.
 
 To compile contracts:
 ```bash
@@ -78,3 +78,5 @@ npx hardhat run script/deploy/UserSample.ts --network arbs
 ```
 
 Similar steps can also be followed for other chains with relevant configs (check `hardhat.config.ts`).
+
+For Serverless example, use the script at `script/deploy/SubsUser.ts`, following the same step as above.
