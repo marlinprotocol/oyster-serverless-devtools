@@ -1,4 +1,5 @@
 import '@nomicfoundation/hardhat-ethers';
+import "@nomicfoundation/hardhat-verify";
 
 import dotenv from 'dotenv';
 

@@ -3,8 +3,8 @@ import { ethers } from "hardhat";
 async function main() {
 
     // Note: Following addresses are dummy values. Replace them with deployed addresses.
-    let relayAddress = "0xD02e33f98a08030B72A471Ae41e696a57cFecCc8";
-    let usdcToken = "0xD330cF76192274bb3f10f2E574a1bDba4ED29352";
+    let relayAddress = "0x56EC16763Ec62f4EAF9C7Cfa09E29DC557e97006";
+    let usdcToken = "0x186A361FF2361BAbEE9344A2FeC1941d80a7a49C";
     let owner = await (await ethers.getSigners())[0].getAddress();
     const userSample = await ethers.deployContract(
         "UserSample",
