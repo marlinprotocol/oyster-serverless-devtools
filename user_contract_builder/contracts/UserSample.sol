@@ -2,34 +2,60 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
-contract UserSample {
+contract UserSample is Ownable {
     using SafeERC20 for IERC20;
+
     address public relayAddress;
 
-    IERC20 public usdcToken;
+    /// @notice refers to USDC token
+    IERC20 public token;
 
-    constructor(address _relayAddress, address _token) {
+    event OwnerEthWithdrawal();
+
+    error EthWithdrawalFailed();
+
+    constructor(
+        address _relayAddress,
+        address _token,
+        address _owner
+    ) Ownable(_owner) {
         relayAddress = _relayAddress;
-        usdcToken = IERC20(_token);
+        token = IERC20(_token);
     }
 
+    event CalledBack(
+        uint256 indexed jobId,
+        address jobOwner,
+        bytes32 codehash,
+        bytes codeInputs,
+        bytes outputs,
+        uint8 errorCode
+    );
+
+    // bytes32 txhash = 0xc7d9122f583971d4801747ab24cf3e83984274b8d565349ed53a73e0a547d113;
+
     function relayJob(
+        uint8 _env,
         bytes32 _codehash,
         bytes memory _codeInputs,
         uint256 _userTimeout,
         uint256 _maxGasPrice,
         uint256 _usdcDeposit,
+        uint256 _callbackDeposit,
         address _refundAccount,
         address _callbackContract,
         uint256 _callbackGasLimit
-    ) external payable returns (bool) {
-        usdcToken.safeIncreaseAllowance(relayAddress, _usdcDeposit);
+    ) external returns (bool) {
+        // usdcDeposit = _userTimeout * EXECUTION_FEE_PER_MS + GATEWAY_FEE_PER_JOB;
+        token.safeIncreaseAllowance(relayAddress, _usdcDeposit);
 
-        (bool success, ) = relayAddress.call{value: msg.value}(
+        (bool success, ) = relayAddress.call{value: _callbackDeposit}(
             abi.encodeWithSignature(
-                "relayJob(bytes32,bytes,uint256,uint256,address,address,uint256)",
+                "relayJob(uint8,bytes32,bytes,uint256,uint256,address,address,uint256)",
+                _env,
                 _codehash,
                 _codeInputs,
                 _userTimeout,
@@ -42,26 +68,23 @@ contract UserSample {
         return success;
     }
 
-    event CalledBack(
-        uint256 indexed jobId,
-        address jobOwner, 
-        bytes32 codehash,
-        bytes codeInputs,
-        bytes outputs, 
-        uint8 errorCode
-    );
-
     function oysterResultCall(
         uint256 _jobId,
         address _jobOwner,
         bytes32 _codehash,
         bytes calldata _codeInputs,
-        bytes calldata _output, 
+        bytes calldata _output,
         uint8 _errorCode
     ) public {
         emit CalledBack(_jobId, _jobOwner, _codehash, _codeInputs, _output, _errorCode);
     }
 
+    function withdrawEth() external onlyOwner {
+        (bool success, ) = msg.sender.call{value: address(this).balance}("");
+        if (!success) revert EthWithdrawalFailed();
+
+        emit OwnerEthWithdrawal();
+    }
+
     receive() external payable {}
 }
-
