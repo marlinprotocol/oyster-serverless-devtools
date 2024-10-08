@@ -1,6 +1,6 @@
 # oyster-serverless-devtools
 
-This repository contains helper tools for devlopers who wish to develop applications using Oyster Serverless
+This repository contains helper tools for developers who wish to develop applications using Oyster Serverless
 
 ## Test serverless JS function locally
 
@@ -51,7 +51,7 @@ Usage: hardhat [GLOBAL OPTIONS] [SCOPE] <TASK> [TASK OPTIONS]
 ```
 ### Build
 
-Check the sample contract at `contracts/UserSample.sol`. This can be used as base contract for developing new application contract. For Subscription example, check `contracts/SubsUser.sol`.
+Check the sample contract at `contracts/UserSample.sol`. This can be used as base for developing new smart contract to utilize Oyster Serverless. For Subscription example, check `contracts/SubsUser.sol`.
 
 To compile contracts:
 ```bash
@@ -62,9 +62,9 @@ npx hardhat compile
 
 Deployment script can be found at `script/deploy/UserSample.ts`. Make sure to set existent Relay and USDC contract addresses in the script. Here are the steps to deploy the contract on Arbitrum Sepolia Testnet.
 
-Create an account using [metamask wallet](https://support.metamask.io/getting-started/getting-started-with-metamask/#how-to-install-metamask). Then, select Arbitrum Sepolia as network on Metamask extesion. Get some Arbitrum Sepolia Eths using [faucet](https://faucets.chain.link/sepolia). Make sure that account private key is accessible.
+Create an account using [metamask wallet](https://support.metamask.io/getting-started/getting-started-with-metamask/#how-to-install-metamask). Then, select Arbitrum Sepolia as network on Metamask extension. Get some Arbitrum Sepolia ETHs using [faucet](https://faucets.chain.link/sepolia). Make sure that account private key is accessible.
 
-Next, follow the [guide](https://docs.arbiscan.io/getting-started/viewing-api-usage-statistics) to generate an Arbiscan API Key.
+Next, follow this [guide](https://docs.arbiscan.io/getting-started/viewing-api-usage-statistics) to generate an Arbiscan API Key.
 
 Now, create an `user_contract_builder/.env` file with following content. Fill the place holder with above generated value.
 ```
@@ -72,20 +72,20 @@ ARBITRUM_SEPOLIA_DEPLOYER_KEY=<deployer-account-private-key>
 ARBISCAN_API_KEY=<arbiscan-api-key>
 ```
 
-At the end, following command is required to run to deploy contract on Arbitrum Sepolia Testnet. This will print the deployed contract address.
+At the end, run following command to deploy contract on Arbitrum Sepolia Testnet. This will print the deployed contract address.
 ```bash
 npx hardhat run script/deploy/UserSample.ts --network arbs
 ```
 
 Similar steps can also be followed for other chains with relevant configs (check `hardhat.config.ts`).
 
-For Serverless example, use the script at `script/deploy/SubsUser.ts`, following the same step as above. Make sure to set existent Subscription Relay and USDC contract addresses in the script.
+For the subscription example, use the script at `script/deploy/SubsUser.ts`, following the same step as above. Make sure to set existent Subscription Relay and USDC contract addresses in the script.
 
 ### Contract Verification
 
-Hardhat provides contract verification, allowing users to interact directly with contracts on Arbiscan. It displays all contract transactions and event details in a human-readable format.
+Hardhat provides contract verification, allowing users to interact directly with contracts on [Arbiscan](https://sepolia.arbiscan.io/). It displays all contract transactions and event details in a human-readable format.
 
-Prepare a file named `arg.js` as illustrated below. This file contains the original constructor argument values used while deploying the contract.
+Prepare a file named `arg.js` as illustrated below. This file contains the original constructor argument values, in the same order, used while deploying the contract.
 ```javascript
 module.exports = [
     "0x56EC16763Ec62f4EAF9C7Cfa09E29DC557e97006",
