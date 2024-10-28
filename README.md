@@ -60,7 +60,7 @@ npx hardhat compile
 
 ### Deploy
 
-Deployment script can be found at `script/deploy/UserSample.ts`. Make sure to set existent Relay and USDC contract addresses in the script. Here are the steps to deploy the contract on Arbitrum Sepolia Testnet.
+Deployment script can be found at `script/deploy/UserSample.ts`. In the script, replace the values of the `relayAddress` and `usdcToken` variables with the addresses of the [already deployed Relay and USDC contracts](https://docs.marlin.org/learn/contracts), respectively. Here are the steps to deploy the contract on Arbitrum Sepolia Testnet.
 
 Create an account using [metamask wallet](https://support.metamask.io/getting-started/getting-started-with-metamask/#how-to-install-metamask). Then, select Arbitrum Sepolia as network on Metamask extension. Get some Arbitrum Sepolia ETHs using [faucet](https://faucets.chain.link/sepolia). Make sure that account private key is accessible.
 
@@ -79,7 +79,7 @@ npx hardhat run script/deploy/UserSample.ts --network arbs
 
 Similar steps can also be followed for other chains with relevant configs (check `hardhat.config.ts`).
 
-For the subscription example, use the script at `script/deploy/SubsUser.ts`, following the same step as above. Make sure to set existent Subscription Relay and USDC contract addresses in the script.
+For the subscription example, use the script at `script/deploy/SubsUser.ts`, following the same step as above. In the script, replace the values of the `relaySubscriptionsAddress` and `usdcToken` variables with the addresses of the [already deployed Subscription Relay and USDC contracts](https://docs.marlin.org/learn/contracts), respectively.
 
 ### Contract Verification
 
