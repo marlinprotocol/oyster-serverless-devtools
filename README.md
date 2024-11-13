@@ -4,9 +4,9 @@ This repository contains helper tools for devlopers who wish to develop applicat
 
 ## Test serverless JS function locally
 
-First, clone the `oyster-serverless-devtools` github repository and change directory to `local_tester`.
+First, clone the `oyster-serverless-devtools` github repository and change directory to `splash`.
 ```bash
-git clone https://github.com/marlinprotocol/oyster-serverless-devtools.git && cd oyster-serverless-devtools/local_tester
+git clone https://github.com/marlinprotocol/oyster-serverless-devtools.git && cd oyster-serverless-devtools/splash
 ```
 
 <b>Create docker image for local test server</b>
@@ -20,14 +20,45 @@ docker image build -t tester:latest --build-arg TARGETARCH=amd64 .
 <b>Run local test server</b>
 
 ```bash
-chmod +x mock_serverless.sh
-sudo ./mock_serverless.sh 8090 <path-to-js-file>
+chmod +x splash.sh
+sudo ./splash.sh test 8090 fact.js
 ```
 
 <b> Perform the test call </b>
 
 ```bash
 curl http://0:8090/ -v -d '{"num": 60000}'
+```
+
+## Deploy serverless function
+
+The splash script provides a convenient way to deploy serverless functions.
+
+First, clone the `oyster-serverless-devtools` github repository and change directory to `splash`:
+```bash
+git clone https://github.com/marlinprotocol/oyster-serverless-devtools.git && cd oyster-serverless-devtools/splash
+```
+
+Make the script executable:
+```bash
+chmod +x splash.sh
+```
+
+To deploy a serverless function:
+```bash
+./splash.sh deploy <JS_FILE> <RPC_URL> <PRIVATE_KEY> <CONTRACT_ADDRESS>
+```
+
+Example:
+```bash
+./splash.sh deploy hello.min.js https://sepolia-rollup.arbitrum.io/rpc 0x3db34a7bcc6424e7eadb8e290ce6b3e1423c6e3ef482dd890a812cd3c12bbede 0x44FE06D2940b8782A0a9a9FFD09c65852c0156b1
+```
+
+This will output something like this:
+```
+Deploying hello.min.js to contract 0x44FE06D2940b8782A0a9a9FFD09c65852c0156b1...
+File content stored on blockchain!
+Transaction hash: 0x5bf0c037f482f884baaa781f559328ae018d026d75247761e8a1486d5cbc468a
 ```
 
 ## Serverless User Contract
