@@ -19,7 +19,7 @@ else
 fi
 
 # Run the Docker container with the provided host port and JS file
-CONTAINER_ID=$(docker run -d -p $HOST_PORT:8080 -v "$ABS_JS_FILE":/app/code.js tester)
+CONTAINER_ID=$(docker run -d -p $HOST_PORT:8080 -v "$ABS_JS_FILE":/app/code.js --platform linux/amd64 veegee33/tester)
 
 # Check if the container started successfully
 if [ $? -ne 0 ]; then

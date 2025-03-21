@@ -14,7 +14,7 @@ git clone https://github.com/marlinprotocol/oyster-serverless-devtools.git && cd
 Note that, above Dockerfile accepts `TARGETARCH` as build argument which determines the target cpu. Valid values for `TARGETARCH` are `amd64`and `arm64`. Following is the sample command:
 
 ```bash
-docker image build -t tester:latest --build-arg TARGETARCH=amd64 .
+docker pull veegee33/tester
 ```
 
 <b>Run local test server</b>
