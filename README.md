@@ -9,12 +9,10 @@ First, clone the `oyster-serverless-devtools` github repository and change direc
 git clone https://github.com/marlinprotocol/oyster-serverless-devtools.git && cd oyster-serverless-devtools/local_tester
 ```
 
-<b>Create docker image for local test server</b>
-
-Note that, above Dockerfile accepts `TARGETARCH` as build argument which determines the target cpu. Valid values for `TARGETARCH` are `amd64`and `arm64`. Following is the sample command:
+<b>Pull docker image for local test server</b>
 
 ```bash
-docker image build -t tester:latest --build-arg TARGETARCH=amd64 .
+docker pull veegee33/tester
 ```
 
 <b>Run local test server</b>
